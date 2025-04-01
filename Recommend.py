@@ -30,14 +30,15 @@ def makeVector(num_items, purchase_history_array):
     colVect = []
     for i in range(num_items):
         colVect.append(purchase_history_array[: , i])
-    print(colVect)
-    return colVect
-def makeVectorAngle(colVect): 
+    colVect_arr = np.array(colVect)
+    print(colVect_arr)
+    return colVect_arr
+def makeVectorAngle(colVect_arr): 
     row_angs = []  
-    num_rows = len(colVect) 
+    num_rows = colVect_arr.shape[0]
     for i in range(num_rows):
         for j in range(i + 1, num_rows):
-            VectAngs = calc_angle(colVect[i], colVect[j])
+            VectAngs = calc_angle(colVect_arr[i], colVect_arr[j])
             row_angs.append(VectAngs)
             # average_ang = np.mean(row_angs)
     rowAngs_arr = np.array(row_angs)        
@@ -46,5 +47,5 @@ def makeVectorAngle(colVect):
     print(f"average angle : {average_ang}")
     return average_ang
 purchase_history_array, num_items = arrForm()  
-colVect = makeVector(num_items, purchase_history_array)  
-makeVectorAngle(colVect)  # Make sure to pass colVect here
+colVect_arr = makeVector(num_items, purchase_history_array)  
+makeVectorAngle(colVect_arr)  # Make sure to pass colVect here
