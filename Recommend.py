@@ -15,8 +15,8 @@ def arrForm():
         num_id = int(line2[1])
         purchase_history[customer_id - 1][num_id - 1] = 1
     print(f"positive entries: {sum(sum(row) for row in purchase_history)}")
-    # purchase_history_array = np.array(purchase_history)
-    print(purchase_history)    #remove later
+    purchase_history_array = np.array(purchase_history)
+    print(purchase_history_array)    #remove later
     return purchase_history_array, num_items
 
 
@@ -30,8 +30,7 @@ def makeVector(num_items, purchase_history_array):
     colVect = []
     for i in range(num_items):
         colVect.append(purchase_history_array[: , i])
-    colVect_arr = np.array(colVect)    
-    print(colVect_arr)
+    print(colVect)
     return colVect
 def makeVectorAngle(colVect): 
     row_angs = []  
@@ -46,11 +45,6 @@ def makeVectorAngle(colVect):
     average_ang = np.mean(row_angs)
     print(f"average angle : {average_ang}")
     return average_ang
-# First, read the data and store the returned values
-purchase_history_array, num_items = arrForm()
-
-# Create column vectors
-colVect = makeVector(num_items, purchase_history_array)
-
-# Now, pass colVect to makeVectorAngle
-makeVectorAngle(colVect)
+purchase_history_array, num_items = arrForm()  
+colVect = makeVector(num_items, purchase_history_array)  
+makeVectorAngle(colVect)  # Make sure to pass colVect here
