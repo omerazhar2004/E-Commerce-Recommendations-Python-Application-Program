@@ -1,0 +1,7 @@
+{
+	"nodes":[
+		{"id":"d7f2f8fadcfa4caf","x":-235,"y":-66,"width":250,"height":60,"type":"text","text":""},
+		{"id":"e0cd4acf9ae35029","x":-341,"y":-400,"width":641,"height":480,"type":"text","text":"quer strat:\n1. try to find a way to compare all elements of both necessary arrays\n2. shoping cart = [2   1   5   7]\n3. purchase_history_arr = \n[[1 0 1 0 0]\n [1 1 0 1 0]\n [0 1 0 1 0]\n [0 0 0 0 1]]\n\n\n\n\nfor i ............:\n\tcalc_angle(shoping_cart[i], purchase_arr[i])"}
+	],
+	"edges":[]
+}
