@@ -33,19 +33,29 @@ def makeVector(num_items, purchase_history_array):
     colVect_arr = np.array(colVect)
     print(colVect_arr)
     return colVect_arr
-def makeVectorAngle(colVect_arr): 
+def makeVectorAngle(colVect_arr, num_items): 
     row_angs = []  
-    num_rows = colVect_arr.shape[0]
-    for i in range(num_rows):
-        for j in range(i + 1, num_rows):
+    # num_rows = colVect_arr.shape[0]
+    # num_rows = len(colVect_arr)
+
+    for i in range(num_items):
+        for j in range(i + 1, num_items):
             VectAngs = calc_angle(colVect_arr[i], colVect_arr[j])
             row_angs.append(VectAngs)
-            # average_ang = np.mean(row_angs)
     rowAngs_arr = np.array(row_angs)        
     print(rowAngs_arr)  # remove later
     average_ang = np.mean(row_angs)
     print(f"average angle : {average_ang}")
     return average_ang
+def querForm():
+    f = open("queries.txt", "r")
+    for line in f:
+        shpCrt = f.readline()
+        shpCrt_arr = np.array(shpCrt)
+        print(f"Shopping Cart: {shpCrt_arr}")    
+
+
 purchase_history_array, num_items = arrForm()  
 colVect_arr = makeVector(num_items, purchase_history_array)  
-makeVectorAngle(colVect_arr)  # Make sure to pass colVect here
+makeVectorAngle(colVect_arr, num_items)
+querForm()
