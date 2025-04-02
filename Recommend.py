@@ -28,7 +28,7 @@ def makeVector(num_items, purchase_history_array):
 
 
 def makeVectorAngle(colVect_arr, num_items):
-    map_arr = np.full((num_items, num_items), 90)  # Initialize with default 90 degrees
+    map_arr = np.full((num_items, num_items), 90.0)  # Initialize with default 90 degrees
     angles = []
     for i in range(num_items):
         for j in range(i + 1, num_items):
