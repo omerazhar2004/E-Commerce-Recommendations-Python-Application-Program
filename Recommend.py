@@ -40,19 +40,18 @@ def querForm():
     with open("queries.txt", "r") as f:
         for line in f:
             shp_cart = list(map(int, line.strip().split()))
-            print(f"Shopping cart: {' '.join(map(str, shp_cart))}")
             yield shp_cart  # Yield each shopping cart for processing
 
 
-def mapIter(map_arr, shp_cart):
-    for cart in shp_cart:
+def mapIter(map_arr, queries):
+    for shp_cart in queries:
+        print(f"\nShopping cart: {' '.join(map(str, shp_cart))}")
         recommendations = []
-        for item in cart:
+        for item in shp_cart:
             min_angle = 90.0
             best_match = None
-
             for match_item in range(len(map_arr)):
-                if (match_item + 1) not in cart and map_arr[item - 1, match_item] < min_angle:
+                if (match_item + 1) not in shp_cart and map_arr[item - 1, match_item] < min_angle:
                     best_match, min_angle = match_item + 1, map_arr[item - 1, match_item]  # Convert index to item ID
             if best_match is not None:
                 print(f"Item: {item} ; match: {best_match} ; angle: {min_angle:.2f}")
