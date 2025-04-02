@@ -1,5 +1,2 @@
-if best_match is not None:
-                print(f"Item: {item} ; match: {best_match} ; angle: {min_angle:.2f}")
-                recommendations.append((best_match, min_angle))
-            else:
-                print(f"Item: {item} no match")
+   if norm_a == 0 or norm_b == 0:  # Edge case prevention
+        return 90.0
