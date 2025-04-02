@@ -3,7 +3,7 @@ import math
 
 def arrForm():
     with open("history.txt", "r") as f:
-        num_customers, num_items, num_transactions = map(int, f.readline().strip().split())
+        num_customers, num_items, num_transactions = map(int, f.readline().strip().split())   #reading the first line of the file
         purchase_history = [[0] * num_items for _ in range(num_customers)]   #initialising the array
         
         for _ in range(num_transactions):
@@ -23,20 +23,22 @@ def calc_angle(itemA, itemB):
     return round(math.degrees(np.arccos(cos_theta)), 2)
 
 
+
 def makeVector(num_items, purchase_history_array):
     return purchase_history_array.T  # Transposing gives column vectors directly
 
 
+
 def makeVectorAngle(colVect_arr, num_items):
-    map_arr = np.full((num_items, num_items), 90.0)  # Initialize with default 90 degrees
+    map_arr = np.full((num_items, num_items), 90.0)  # Initialize with default 90.0 degrees values which will be replaced by float angle values
     angles = []
     for i in range(num_items):
         for j in range(i + 1, num_items):
             angle = calc_angle(colVect_arr[i], colVect_arr[j])
             map_arr[i, j] = map_arr[j, i] = angle  # Symmetric assignment
-            angles.append(angle)
+            angles.append(angle)    
 
-    avg_angle = np.mean(angles)
+    avg_angle = np.mean(angles)         #for calculating the average of the angles in angles list
     print(f"Average angle: {avg_angle:.2f}")
     return avg_angle, map_arr
 
@@ -72,7 +74,6 @@ def mapIter(map_arr, queries):
         # Sorting recommendations by angle and enforcing uniqueness
         unique_recommendations = {item[0]: item[1] for item in sorted(recommendation_list, key=lambda x: x[1])}  # Dict removes duplicates
         final_recommendations = [str(item) for item in unique_recommendations.keys()]
-
         print(f"Recommend: {' '.join(final_recommendations)}")
 
 # Running the entire pipeline
