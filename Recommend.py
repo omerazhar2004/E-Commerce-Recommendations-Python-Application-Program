@@ -16,8 +16,12 @@ def arrForm():
 def calc_angle(itemA, itemB):
     norm_a = np.linalg.norm(itemA)
     norm_b = np.linalg.norm(itemB)
+    if norm_a == 0 or norm_b == 0:  # Edge case prevention
+        return 90.0
+
+
     cos_theta = np.dot(itemA, itemB) / (norm_a * norm_b)
-    return math.degrees(np.arccos(cos_theta))
+    return round(math.degrees(np.arccos(cos_theta)), 2)
 
 def makeVector(num_items, purchase_history_array):
     return purchase_history_array.T  # Transposing gives column vectors directly
@@ -46,22 +50,32 @@ def querForm():
 def mapIter(map_arr, queries):
     for shp_cart in queries:
         print(f"\nShopping cart: {' '.join(map(str, shp_cart))}")
-        recommendations = []
+        
+        recommended_items = set()  # Use set to ensure uniqueness
+        recommendation_list = []  # Store tuples for sorting
+        
         for item in shp_cart:
             min_angle = 90.0
             best_match = None
+            
             for match_item in range(len(map_arr)):
-                if (match_item + 1) not in shp_cart and map_arr[item - 1, match_item] < min_angle:
+                if (match_item + 1) not in shp_cart and match_item + 1 not in recommended_items and map_arr[item - 1, match_item] < min_angle:
                     best_match, min_angle = match_item + 1, map_arr[item - 1, match_item]  # Convert index to item ID
+            
             if best_match is not None:
                 print(f"Item: {item} ; match: {best_match} ; angle: {min_angle:.2f}")
-                recommendations.append((best_match, min_angle))
+                recommended_items.add(best_match)  # Ensure uniqueness
+                recommendation_list.append((best_match, min_angle))  # Keep for sorting
             else:
                 print(f"Item: {item} no match")
 
-        recommendations.sort(key=lambda x: x[1])  # Sort by angle
-        recommended_items = [str(item[0]) for item in recommendations]
-        print(f"Recommend: {' '.join(recommended_items)}")
+        # Sorting only unique recommendations by angle
+        recommendation_list = sorted(recommendation_list, key=lambda x: x[1])
+        final_recommendations = [str(item[0]) for item in recommendation_list]
+        
+        print(f"Recommend: {' '.join(final_recommendations)}")
+
+
 
 # Running the entire pipeline
 purchase_history_array, num_items = arrForm()
