@@ -51,6 +51,7 @@ def querForm():
             yield shp_cart  # Yield each shopping cart for processing
 
 
+
 def mapIter(map_arr, queries):
     for shp_cart in queries:
         print(f"\nShopping cart: {' '.join(map(str, shp_cart))}")
