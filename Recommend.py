@@ -50,32 +50,28 @@ def querForm():
 def mapIter(map_arr, queries):
     for shp_cart in queries:
         print(f"\nShopping cart: {' '.join(map(str, shp_cart))}")
-        
-        recommended_items = set()  # Use set to ensure uniqueness
+
         recommendation_list = []  # Store tuples for sorting
         
         for item in shp_cart:
-            min_angle = 90.0
+            min_angle = 90.00
             best_match = None
             
             for match_item in range(len(map_arr)):
-                if (match_item + 1) not in shp_cart and match_item + 1 not in recommended_items and map_arr[item - 1, match_item] < min_angle:
-                    best_match, min_angle = match_item + 1, map_arr[item - 1, match_item]  # Convert index to item ID
-            
+                if (match_item + 1) not in shp_cart and map_arr[item - 1, match_item] < min_angle:
+                    best_match, min_angle = match_item + 1, map_arr[item - 1, match_item]
+
             if best_match is not None:
                 print(f"Item: {item} ; match: {best_match} ; angle: {min_angle:.2f}")
-                recommended_items.add(best_match)  # Ensure uniqueness
-                recommendation_list.append((best_match, min_angle))  # Keep for sorting
+                recommendation_list.append((best_match, min_angle))  # Store tuples for sorting
             else:
                 print(f"Item: {item} no match")
 
-        # Sorting only unique recommendations by angle
-        recommendation_list = sorted(recommendation_list, key=lambda x: x[1])
-        final_recommendations = [str(item[0]) for item in recommendation_list]
-        
+        # Sorting recommendations by angle and enforcing uniqueness
+        unique_recommendations = {item[0]: item[1] for item in sorted(recommendation_list, key=lambda x: x[1])}  # Dict removes duplicates
+        final_recommendations = [str(item) for item in unique_recommendations.keys()]
+
         print(f"Recommend: {' '.join(final_recommendations)}")
-
-
 
 # Running the entire pipeline
 purchase_history_array, num_items = arrForm()
