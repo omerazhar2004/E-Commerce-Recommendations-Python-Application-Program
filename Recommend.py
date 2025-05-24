@@ -54,7 +54,7 @@ def querForm():
 
 def mapIter(map_arr, queries):
     for shp_cart in queries:
-        print(f"\nShopping cart: {' '.join(map(str, shp_cart))}")
+        print(f"Shopping cart: {' '.join(map(str, shp_cart))}")
 
         recommendation_list = []  # Store tuples for sorting
         

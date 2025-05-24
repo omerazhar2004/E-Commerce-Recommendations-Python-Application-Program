@@ -1,1 +1,0 @@
-print(map_arr)
